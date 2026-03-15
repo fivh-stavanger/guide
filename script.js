@@ -1,3 +1,11 @@
+
+// Safari touch compatibility
+document.addEventListener(
+  'touchstart',
+  function () {},
+  { passive: false }
+);
+
 var map;
 var places = {};
 var layers = {};
@@ -46,20 +54,25 @@ L.MarkerClusterGroup.include({
 });
 
 function init() {
-    map = L.map('map').setView([58.96, 5.71], 13);
-    L.tileLayer(
-	'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-	{
-	    attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, ' +
-		'&copy; <a href="https://openmaptiles.org/">OpenMapTiles</a>, ' +
-		'&copy; <a href="http://openstreetmap.org">OpenStreetMap</a>, ' +
-		'made by <a href="mailto:pierrebeauguitte@pm.me">Pierre Beauguitte</a>',
-	    maxZoom: 20,
-	    minZoom: 11,
-	}).addTo(map);
-    map.setMaxBounds(L.latLngBounds(L.latLng(59, 5),
-				    L.latLng(58.5, 6)));
-    loadPlaces();
+    map = L.map('map', { tap: false, maxZoom: 20, minZoom: 7}).setView([58.94, 5.71], 13);
+    
+    const maplibreLayer = L.maplibreGL({
+        style: 'https://tiles.openfreemap.org/styles/bright',
+        attribution:
+            '© OpenStreetMap contributors, tiles by OpenFreeMap, made by Pierre Beauguitte, adapted by Martin Haug',
+        maxZoom: 20,
+        minZoom: 7,
+		//pane: 'tilePane' //  keep GL below markers
+    }).addTo(map);
+    
+    map.setMaxBounds(
+        L.latLngBounds(
+            L.latLng(58, 5),
+            L.latLng(59, 6)
+        )
+    );
+    
+	loadPlaces();
 }
 
 function makeClusterIcon(type) {
@@ -126,7 +139,7 @@ function hideRows(cat) {
 
 var translations = {
     'food': {
-	'text': 'Mat',
+	'text': 'Bærekraftig mat',
 	'icon': 'restaurant'
     },
     'bike': {
@@ -134,19 +147,21 @@ var translations = {
 	'icon': 'pedal_bike'
     },
     'clothes': {
-	'text': 'Klær',
+	'text': 'Klær og gjenbruk',
 	'icon': 'checkroom'
     },
     'tools': {
-	'text': 'Verktøyutleie- og utlån',
+	'text': 'Reparasjon og verksted',
 	'icon': 'handyman'
     },
     'sports': {
-	'text': 'Utlån av sportsutstyr',
-	'icon': 'downhill_skiing'
+	'text': 'Del, lån og lei',
+	'icon': 'diversity_1'
+    },
+    'events': {
+	'text': 'Andre',
+	'icon': 'campaign'
     }
-
-
 }
 
 function createTable() {
@@ -160,13 +175,24 @@ function createTable() {
 	var cnt = 0;
 	places[cat].view = false;
 	for (place of places[cat]) {
-	    tableContent += "<tr class='place " + cat +
-		"' onClick=pop('" + cat + "'," +
-		cnt + "); style='display: none'>\n<td class='placename'>" +
-		place['prop']['name'] + "</td>\n" + 
-		"<td align='right'><a href='" + place['prop']['website'] +
-		"' target='_blank'>➜</a></td>\n</tr>\n";
-	    cnt++;
+		let infoText = place['prop']['info'] ? place['prop']['info'] : "No extra info";
+		infoText = infoText.replace(/"/g, '&quot;'); // escape quotes for HTML
+		
+		tableContent += "<tr class='place " + cat + "' " +
+		    "onClick=pop('" + cat + "'," + cnt + "); style='display: none'>\n" +
+		    "<td class='placename'>" + place['prop']['name'] + "</td>\n" + 
+		    "<td align='right'>" +
+		        (place['prop']['info']
+		          ? " <span class='info-icon' title='" + infoText + "'>ℹ️💡</span>"
+		          : ""
+		        ) +
+				(place['prop']['website']
+		          ? "<a href='" + place['prop']['website'] + "' target='_blank'>➜</a>"
+		          : ""
+		        ) +
+		        
+		    "</td>\n</tr>\n";
+		cnt++;
 	}
     }
     document.getElementById("tableview").innerHTML = tableContent;
@@ -183,7 +209,7 @@ function makeIcon(cat) {
     });
 }
 
-function loadPlaces() {
+function loadPlaces2() {
     $.getJSON("data.json",function(data) {
 	L.geoJson(data, {
 	    pointToLayer: function(feature,latlng) {
@@ -207,6 +233,70 @@ function loadPlaces() {
 	createTable();
 	draw();
     });
+}
+
+function loadPlaces() {
+    fetch('data.csv')
+        .then(response => response.text())
+        .then(csvText => {
+            const parsed = Papa.parse(csvText, {
+                header: true,
+                skipEmptyLines: true
+            });
+
+            // Clear previous places
+            places = {};
+
+            parsed.data.forEach(row => {
+                // Parse geometry: "longitude,latitude"
+                let lon = null, lat = null;
+                if (row.geometry && row.geometry.includes(',')) {
+                    const coords = row.geometry.split(',').map(Number);
+                    lon = coords[0];
+                    lat = coords[1];
+                }
+                if (lat === null || lon === null || isNaN(lat) || isNaN(lon)) return; // skip invalid
+
+                const cat = row.category;
+                const prop = {
+                    name: row.name,
+                    category: cat,
+                    website: row.website,
+                    address: row.address,
+                    city: row.city,
+					info: row.info
+                };
+
+				let infoText = prop.info ? prop.info.replace(/"/g, '&quot;') : "No extra info";
+
+				const marker = L.marker([lat, lon], { icon: makeIcon(cat) });
+				marker.bindPopup(
+				    '<b>' + prop.name + '</b>' +
+				    '<p style="padding:0;margin:0;">' +
+				        (prop.address ? prop.address + '<br/>' : '') +
+				        (prop.city ? prop.city : '') +
+				    '</p>' +
+				    (prop.website
+				        ? '<a target="_blank" href="' + prop.website + '">' + prop.website + '</a>'
+				        : ''
+				    ) +
+				    (prop.info
+				        ? ' <span class="info-icon" title="' + infoText + '">mer info💡</span>'
+				        : ''
+				    )
+				);
+
+
+                if (!(cat in places)) places[cat] = [];
+                places[cat].push({
+                    'prop': prop,
+                    'marker': marker
+                });
+            });
+
+            createTable();
+            draw();
+        });
 }
 
 function toggleNav() {

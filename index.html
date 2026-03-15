@@ -1,32 +1,42 @@
 <html>
   <head>
     <title>Grønn byguide Stavanger</title>
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./MarkerCluster.css"/>
-    <meta property="og:image" content="https://fivh-oslo.github.io/guide/screenshot2.png" />
+    <meta property="og:image" content="https://fivh-tromso.github.io/guide/screenshot2.png" />
     <script src="./leaflet.markercluster.js"></script>
     <link rel="icon"
 	  type="image/png"
 	  href="https://www.framtiden.no/favicon.ico">
+
+	<!-- MapLibre GL JS -->
+	<script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+	<link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet"/>
+
+	<!-- Leaflet + MapLibre bridge -->
+	<script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js"></script>
+
     <script src="./script.js"></script>
   </head>
   <body onload="init()">
 
     <div id="header">
       <div id="logo">
-	<img src="logo.png" alt="logo" height="150px;">
+	<img src="logo.png" alt="logo" height="110px;">
       </div>
       <div id="titlebanner">
 	<h1 class="title">Grønn byguide Stavanger</h1>
-	<h3 class="title">For å gjøre det enklere for deg å finne aktører i Stavanger som driver bærekraftig</h3>
+	<h3 class="title">Finn bruktbutikker, reparatører, delingsordninger og mer! </h3>
       </div>
     </div>
-
+	  
     <div id="content">
       <div id="map"></div>
       <div id="rightcol">
@@ -44,7 +54,17 @@
     </div>
 
     <div id="footer">
-      <p>Dette er ikke en uttømmende liste. Vi håper at kartet kan bli komplett og oppdatert med hjelp fra dere der ute!</p>
+      <p><b> <a target="_blank" href="">🚩Ser du noen feil? Savner du noe? Gi feedback og bidrag her! </a> </b></p>
+
+	  <p> 🟧 en guide av <a target="_blank" href="https://linktr.ee/framtidentromso">Framtiden i våre hender Stavanger </a> </p>
+      <p> 💚 Dugnadsbasert, ikke-kommersiell, kun et ønske om å synliggjøre bærekraftige valg. </p>
+	  
+
+	  
+		
+      <p><i> ⏰ Sist oppdatert: 20. februar 2026 </i></p>
+
+	</div>
 
   </body>
 </html>
