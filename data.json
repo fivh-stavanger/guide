@@ -1,0 +1,209 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bellies",
+    "category": "food",
+    "website": "http://bellies.no/",
+    "address": "Støperigata 6",
+    "city": "4014 Stavanger"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     5.751985019646814,
+     58.97132811986864
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Verkstedet Sølvberget",
+    "category": "tools",
+    "website": "https://www.solvberget.no/artikler/verkstedet/",
+    "address": "Sølvberggata 2",
+    "city": "4002 Stavanger"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     5.733383323176921,
+     58.97131516527252
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Paa Hjul",
+    "category": "bike",
+    "website": "https://rogaland.paahjul.no/",
+    "address": "Haakon VII`s gate 9",
+    "city": "4005 Stavanger"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     5.729666303205533,
+     58.96943486940864
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Happy Bike Sykkel & Verksted",
+    "category": "bike",
+    "website": "http://www.happybike.no/",
+    "address": "Haugåsstubben 10",
+    "city": "4016 Stavanger"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     5.72602612883596,
+     58.945446630976406
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bernina Sysenter",
+    "category": "tools",
+    "website": "https://www.berninasysenter.no/",
+    "address": "Bakkegata 12",
+    "city": "4006 Stavanger"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     5.733018941852102,
+     58.97232804215378
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ReTuren",
+    "category": "tools",
+    "website": "https://www.dnt.no/om-dnt/dnts-arbeid/barekraft-i-dnt/returen-syverksted/Stavanger/",
+    "address": "Olav V s gate 18",
+    "city": "4005 Stavanger"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     5.7318880188661065,
+     58.96606994999416
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Byens Skomaker",
+    "category": "tools",
+    "website": "https://www.byensskomaker.no/",
+    "address": "Søregata 16",
+    "city": "4006 Stavanger"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     5.734179544483626,
+     58.97106837461529
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Svithun Husflidslag",
+    "category": "tools",
+    "website": "https://husflid.no/lag/rogaland-husflidslag/svithun-husflidslag/",
+    "address": "Nedre Lagårdsvei 2",
+    "city": "4010 Stavanger"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     5.739539665247689,
+     58.96032628657652
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Ullandhaug gårdsbutikk (Ullandhaug)",
+    "category": "food",
+    "website": "https://www.ullandhauggardsbutikk.no/",
+    "address": "Ullandhaugveien 150",
+    "city": "4021 Stavanger"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     5.700327537662666,
+     58.94216414366871
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Ullandhaug gårdsbutikk (sentrum)",
+    "category": "food",
+    "website": "https://www.ullandhauggardsbutikk.no/",
+    "address": "Verksgata 13",
+    "city": "4013 Stavanger"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     5.739169027244459,
+     58.97126328278844
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Løvås Bruktbu",
+    "category": "clothes",
+    "website": "https://www.pedersgata.no/bruktbutikk/lovas-bruktbu",
+    "address": "Pedersgata 25",
+    "city": "4013 Stavanger"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     5.7421700049456526,
+     58.96993647953497
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Fretex Arkivet",
+    "category": "clothes",
+    "website": "https://www.fretex.no/handle/finn-butikk/fretex-arkivet-breigata/",
+    "address": "Breigata 20",
+    "city": "4005 Stavanger"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     5.734345713449582,
+     58.9726543660375
+    ]
+   }
+  }
+ ]
+}
